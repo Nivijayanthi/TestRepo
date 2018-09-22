@@ -7,7 +7,7 @@ This file is part of the Innovation LAB - Offline Bot.
 //6c7e02249ef94cc68b647881b36f0739
 
 define({
-    accessToken: 'ee3683b183ec498ea5a1f277a85974fd',
+    accessToken: '072373aef15e4eeba755d991e20ab919',
     chatServerURL : "https://api.dialogflow.com/v1/query?v=20150910",
     applicationTitle: "Chat Assistant",
     userTitle : "Me",
