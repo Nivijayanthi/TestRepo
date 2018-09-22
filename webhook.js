@@ -46,63 +46,8 @@ app.post("/webhook",async (req,res)=>{
   });
 })
 
-app.post('/sendEmail', async function (req, res) {
-  console.log("Send email..............",JSON.stringify(req.body));
-  let message=req.body.message;
-  var client = MicrosoftGraph.Client.init({
-    authProvider: (done) => {
-      done(null, req.body.params); //first parameter takes an error if you can't get an access token
-    }
-  });
-  
-  try {
-    await client
-    .api('https://graph.microsoft.com/v1.0/me/sendMail')
-    .post({
-      "message": message
-    }, (err, resp) => {
-      console.log("response",resp);
-      console.log("error",err);
-        res.send("Email Send")
-    })
- 
-  }
-  catch(e){
-    res.send("Error"+e)
-  }
 
 
-})
-app.post('/outlook', async function (req, res) {
-
-  var client = MicrosoftGraph.Client.init({
-    authProvider: (done) => {
-      done(null, req.body.params); //first parameter takes an error if you can't get an access token
-    }
-  });
-  try {
-    var dateUTC = moment().utc().format()
-    let startdate = dateUTC;
-    let enddate = moment().add(15, 'minutes').utc().format();
-    console.log(startdate);
-    console.log(enddate);
-    const result = await client
-      .api(`https://graph.microsoft.com/v1.0/me/calendarView?StartDateTime=${startdate}&EndDateTime=${enddate}`)
-      .get();
-    let data = result.value[0]["subject"];
-    let client_name='';
-    await dbs.ClientProfileGet({
-      ClientId: data
-    }).then(function (data) {
-      client_name=data[0].Name;
-    })
-    result.value[0]["client_name"]=client_name;
-    res.send(result);
-  } catch (e) {
-    res.send(e)
-  }
-
-})
 app.get('/auth', function (req, res) {
   let parms = {};
   parms.signInUrl = authHelper.getAuthUrl();
@@ -125,32 +70,6 @@ app.get('/authorize', async function (req, res, next) {
   }
 
 });
-app.post('/callPhone', function (req, res) {
-  callServiceNowApi("https://dev64379.service-now.com/api/now/table/u_servicerequest?sysparm_limit=1&sysparm_query=ORDERBYDESCsys_created_on&u_string3=9876543210&u_choice_1=in%20progress", null, "GET", function (err, data) {
-    res.send(data);
-  })
-})
-app.get('/Admin/News', function (req, res) {
-  res.sendfile(__dirname + '/Admin/news.html');
-})
-app.get('/Admin/RiskProfile', function (req, res) {
-  res.sendfile(__dirname + '/Admin/risk-profile.html');
-})
-app.get('/Admin/ProductPerformance', function (req, res) {
-  res.sendfile(__dirname + '/Admin/product-performance.html');
-})
-app.get('/Admin/Dashboard', function (req, res) {
-  res.sendfile(__dirname + '/Admin/index.html');
-})
-app.get('/Admin/holdings', function (req, res) {
-  res.sendfile(__dirname + '/Admin/holdings.html');
-})
-app.get('/Admin/Profile', function (req, res) {
-  res.sendfile(__dirname + '/Admin/profile.html');
-})
-app.get('/Admin/transactions', function (req, res) {
-  res.sendfile(__dirname + '/Admin/transactions.html');
-})
 app.post('/updateSessionState', function (req, res) {
   callServiceNowApi("https://p3ep1jeoz4.execute-api.us-east-1.amazonaws.com/Dev/updatesession", {
     type: req.body.params,
@@ -164,71 +83,9 @@ app.get('/chatwindow', function (req, res) {
     res.sendfile(__dirname + '/chatwindow1.html');
 
 });
-app.get('/roaming', function (req, res) {
-    res.sendfile(__dirname + '/roaming.html');
-});
 app.get('/chat', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
-app.post("/holdingcustomer",async function(req,res){
-  let custid = req.body.params;
-  await dbs.holdingsProductGet(custid).then(function (data) {
-    res.send(data);
-  })
-})
-app.post("/lowperforming",async function(req,res){
-  let custid = req.body.params;
-  await dbs.getLowPerformingFund(custid).then(function (data) {
-    res.send(data);
-  })
-})
-app.post("/viewProfile", async function (req, res) {
-  let custid = req.body.params;
-  console.log(custid);
-  await dbs.ClientProfileGet({
-    ClientId: custid
-  }).then(function (data) {
-    res.send(data);
-  })
- 
-})
-app.post("/viewTransactions", async function (req, res) {
-  let custid = req.body.params;
-  await dbs.transactionsProductGet(custid).then(function (data) {
-    console.log(data);
-    res.send(data);
-  })
- 
-})
-app.post("/viewProductPerformance", async function (req, res) {
-  let custid = req.body.params;
-  await dbs.productPeformance().then(function (data) {
-    console.log(data);
-    res.send(data);
-  })
- 
-})
-app.post("/viewRiskProfile", async function (req, res) {
-  let custid = req.body.params;
-  console.log(custid);
-  await dbs.ClientRiskProfileGet({
-    ClientID: custid
-  }).then(function (data) {
-    console.log(data);
-    res.send(data);
-  })
- 
-})
-app.post("/viewHoldingProfile", async function (req, res) {
-  let custid = req.body.params;
-  console.log(custid);
-  await dbs.holdingsProfileGet({
-    CustomerID: custid
-  }).then(function (data) {
-    console.log(data);
-    res.send(data);
-  })
-})
 
 function callServiceNowApi(url, dataService, type, callback) {
   try {

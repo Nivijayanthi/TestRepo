@@ -9,9 +9,9 @@ This file is part of the Innovation LAB - Offline Bot.
 define({
     accessToken: '072373aef15e4eeba755d991e20ab919',
     chatServerURL : "https://api.dialogflow.com/v1/query?v=20150910",
-    applicationTitle: "Chat Assistant",
+    applicationTitle: "ELSA",
     userTitle : "Me",
-    botTitle : "AMRN Assistant",
+    botTitle : "ELSA",
     botAvatar : "./avatar/bot-logo-image.png",
     userAvatar : "avatar/user.png",
     attachmentUploadURL : "",
