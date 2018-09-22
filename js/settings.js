@@ -11,7 +11,7 @@ define({
     chatServerURL : "https://api.dialogflow.com/v1/query?v=20150910",
     applicationTitle: "Chat Assistant",
     userTitle : "Me",
-    botTitle : "Opty Assistant",
+    botTitle : "AMRN Assistant",
     botAvatar : "./avatar/bot-logo-image.png",
     userAvatar : "avatar/user.png",
     attachmentUploadURL : "",
