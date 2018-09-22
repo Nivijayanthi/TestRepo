@@ -1,0 +1,293 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr">
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <META content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon_0.ico" type="image/vnd.microsoft.icon" />
+
+  <title>Wealth Management Service | Charles Stanley</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" rel="preload" as="style" href="style/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" rel="preload" as="style" href="style/propeller.min.css" type="text/css" />
+  
+
+
+<!--[if lte IE 7]>
+<link type="text/css" rel="stylesheet" href="style/ie.css" media="all" />
+<![endif]-->
+
+<!--[if IE 6]>
+<link type="text/css" rel="stylesheet" href="style/ie6.css" media="all" />
+<![endif]-->
+
+  
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRScAMh1d4jDaQkqgKaBzHMGbgAunEdQo&sensor=false" type="text/javascript"></script> -->
+
+  <style type="text/css">
+    .popover{
+        max-width:400px;
+    }
+    .popover-content{
+      padding:0px;
+    }
+    .btn.pmd-btn-fab i, .btn.pmd-btn-fab span {
+    line-height: 27px;
+}
+</style>
+
+
+  
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-11968 node-type-detail-service-rebrand above_page_content container-fluid"   >
+  <div>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+	<div>
+
+		<div class="menu pmd-floating-action" role="navigation" style="margin-right: 59px;margin-bottom: 0px;">
+			<a id="btn-send-message" style="width:30px;height: 30px;min-width: 30px" class="btn popover-html1 pmd-btn-fab pmd-btn-raised pmd-ripple-effect  btn-primary" data-trigger="click"
+			 data-toggle="popover" data-placement="top" data-html="true" href="javascript:void(0);"> 
+<span class="pmd-floating-hidden">Primary</span>
+<i style="line-height: 27px;font-size: 15px" class="material-icons md-light pmd-sm">chat</i>
+</a>
+		</div>
+	</div>
+
+</div>
+<script data-main="/js/require-setup" src="require.js"></script>
+
+  <script>
+	require(['jquery'], function ($) {
+		require(['bootstrap.min', 'apiService', 'utils', 'settings', 'moment', 'jqueryscoped', 'Cookies'], function (bootstrap, apiService, utils, settings, moment, jqueryscoped, Cookies) {
+				$.scoped();
+			var today = Math.round((new Date()).getTime() / 1000);
+			var chatTranscript = [];
+			$("a.popover-html1").unbind().click(function (event) {
+				event.preventDefault();
+				event.stopPropagation();
+				//console.log('--------popover');
+				if ($("div.popover").css("display") == undefined) {
+					var host = window.location.origin;
+					//console.log(host);
+					if (host == "http://localhost:9000")
+						$("div[role='navigation'] a").attr("data-content", `<iframe id='iChatPopup' src='http://localhost:9000/?popup=1&search=' height='400' width='300' style='border:none'></iframe>`)
+					else if (host == "https://charleswealthbot.herokuapp.com")
+						$("div[role='navigation'] a").attr("data-content", `<iframe id='iChatPopup' src='https://charleswealthbot.herokuapp.com/?popup=1&search=' height='400' width='300' style='border:none'></iframe>`)
+					else
+						$("div[role='navigation'] a").attr("data-content", `<iframe id='iChatPopup' src='http://ec2-52-200-145-184.compute-1.amazonaws.com:9000/?popup=1&search=' height='400' width='300' style='border:none'></iframe>`)
+					// utils.initiateAjax("/callPhone", "POST", "", function (data, err) {
+
+					// 	let statusm = data.result[0];
+
+					// 	let title = statusm["u_title"];
+					// 	let custname = statusm["u_name"];
+					// 	let serviceReq = statusm["u_number"];
+					// 	let statusType = statusm["u_choice_4"];
+					// 	let srStatus = statusm["u_choice_1"];
+					// 	let dateCreation = statusm["sys_created_on"];
+					// 	var myDate = new Date(new Date(dateCreation).getTime() + (2 * 24 * 60 * 60 * 1000))
+					// 	setTimeout(() => {
+
+					// 		let msg_container = $("iframe").contents().find('body div.chat-body');
+					// 		msg_container.find("h1").addClass('hidden');
+					// 		msg_container.find("div.chat-text-para").addClass('hidden');
+					// 		msg_container.find(".header-text-logo").removeClass('hidden');
+					// 		msg_container.find("ul").removeClass('hidden');
+					// 		msg_container.find("ul").append(`<li class="animated fadeInLeft list-group-item background-color-custom">
+					// 					<table border="0" cellpadding="0" cellspacing="0">
+					// 					<tr>
+					// 					<td style="vertical-align:top;">
+					// 					<img width="35" height="35" class="bot-logo-image"/></td>
+					// 					<td><div class="media-body bot-txt-space">
+					// 					<p class="list-group-item-text-bot">${utils.getWelcomeMessage()} ${title}. ${custname}! I'm Opty, the Optus bot.<br/>Your ticket for ${statusType} change(${serviceReq}) is ${srStatus} and will be
+					// 					closed on ${myDate.getDate() + "/" + Number(myDate.getMonth() + 1) + "/" + myDate.getFullYear()}. Would you like to chat with the person handling this ticket?</p>
+					// 					<p class="bot-res-timestamp"><small> <img style="border-radius:50%;border:2px solid white;" width="20" height="20" src='${settings.botAvatar}'/>${utils.currentTime()}</small></p>
+					// 					</div></td>
+					// 					</tr>
+					// 				  </table></li>`);
+					// 	}, 2000)
+
+
+
+
+
+					// });
+
+				}
+				else {
+					return false;
+				}
+
+			})
+
+			$(function () {
+				var today = Math.round((new Date()).getTime() / 1000);
+				$('[data-toggle="popover"]').popover();
+       
+		        $("a#btn-send-message").click(function(e,data){
+         if(data && data.hasOwnProperty('value') && data.value.length>0)
+         {
+					let bodypreview=data.value[0].bodyPreview;
+					let onlinemeetingurl=data.value[0].onlineMeetingUrl;
+					let starttime=utils.getDateFormat("Asia/Kolkata",data.value[0].start.dateTime);
+					let finalStartTime=starttime.split('+')[0];
+				    setTimeout(()=>{
+						let msg_container = $("iframe").contents().find('body div.chat-body');
+						msg_container.find("h1").addClass('hidden');
+					msg_container.find("div.chat-text-para").addClass('hidden');
+					msg_container.find(".header-text-logo").removeClass('hidden');
+          msg_container.find("ul").removeClass('hidden');
+          localStorage.setItem("clientid",data.value[0].subject);
+					msg_container.find("ul").append(`
+<li class="list-group-item background-color-custom animated fadeInLeft">
+<div class="pmd-card pmd-card-default pmd-z-depth custom-infocard">
+<!-- Card header -->
+
+<div class="pmd-card-media">
+	<img style="padding:6px 0px 0 42px!important" src="https://www.itprotoday.com/sites/itprotoday.com/files/styles/article_featured_standard/public/uploads/2014/06/outlook-email-icon595x335_0.jpg?itok=17J8g74Z"  width="200" height="100" class="img-responsive">
+</div>
+<div class="pmd-card-title">
+	<h3 class="card-body">
+		<p class="card-title">${data.value[0].client_name} <br/>${finalStartTime}</p>
+		<p class="card-subtitle">${bodypreview}</p>  
+</h3></div>
+<div class="pmd-card-actions">
+	<button type="button" class="btn btn-primary infocard-btn-custom" onclick="window.open('https://charleswealthbot.herokuapp.com/Admin/Dashboard?CustomerID=${data.value[0].subject}')">View Profile</button>
+	<button type="button" data-decline="${data.value[0].id}" class="btn btn-primary infocard-btn-custom meeting-decline">Decline</button>
+	
+</div>
+
+
+</div>
+<p class="bot-res-timestamp-card">
+<small><img style="border-radius:50%;border:2px solid white;" width="20" height="20" class="welcome-message">11:36 am</small>
+</p>
+</li>`);
+          },5000)
+        }
+				})
+				let url = new URL(window.location.href);
+				let params = utils.getURLParameter('sessionstate');
+				let paramsOutlook = utils.getURLParameter('token');
+				setInterval(()=>{
+				if(localStorage.getItem('meetingsdecl')==undefined){
+						localStorage.setItem('meetingsdecl',JSON.stringify([]))
+				}
+				let meetingdecl=JSON.parse(localStorage.getItem('meetingsdecl'))
+               
+				if(paramsOutlook){
+					localStorage.setItem('token',paramsOutlook);
+				}
+				if(localStorage.getItem('token')){
+				utils.initiateAjax("/outlook", "POST", { params: localStorage.getItem('token')}, function (data, err) {
+					
+					if(data.statusCode==401 && data.hasOwnProperty("code") && data.code=="InvalidAuthenticationToken"){
+						// alert('Token Expired!!! Redirecting you. Please Wait...')
+						// window.location.href="https://charleswealthbot.herokuapp.com/auth";
+					}
+					if(data.value && data.value.length>0 && data.value[0].hasOwnProperty('subject') && data.value[0].subject)
+					{
+						if(meetingdecl.indexOf(data.value[0].id)==-1){
+					let msg_container = $("div.popover").html();
+					if(!msg_container || msg_container==undefined){
+						$("a#btn-send-message").trigger('click', data);
+					}
+				}
+				    }
+				
+				});
+				
+			}
+			},10000)
+	           if(params){
+				utils.initiateAjax("/updateSessionState", "POST", { params: params, sessionId: localStorage.getItem('uuid') }, function (data, err) {
+				});
+			}
+			})
+
+			// function captureTranscript() {
+			// 	var iframe = document.getElementById('iChatPopup');
+			// 	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+			// 	innerDoc.getElementById('msg_container');
+			// 	var dataList = innerDoc.getElementById('msg_container').getElementsByTagName("li");
+			// 	var botObj = [];
+			// 	var userObj = [];
+			// 	var cardMsg = 'Card';
+			// 	var objArr = { "Bot": "", "User": "" };
+
+			// 	for (var index = 0; index < dataList.length; index++) {
+			// 		if (dataList[index].getElementsByClassName("list-group-item-text-user")[0] == undefined) {
+			// 			if (dataList[index].getElementsByClassName("list-group-item-text-bot")[0] != undefined) {
+			// 				botObj = dataList[index].getElementsByClassName("list-group-item-text-bot");
+			// 			} else if (dataList[index].getElementsByClassName("card-body")[0] != undefined) {
+			// 				botObj = cardMsg;
+			// 			} else if (dataList[index].getElementsByClassName("list-group-item-quick-reply-space")[0] != undefined) {
+			// 				botObj = dataList[index].getElementsByClassName("list-group-item-quick-reply-space");
+			// 			} else {
+			// 				botObj[0] = undefined;
+			// 			}
+			// 		}
+			// 		userObj = dataList[index].getElementsByClassName("list-group-item-text-user");
+
+			// 		if (dataList[index].getElementsByClassName("list-group-item-text-bot")[0] != undefined || dataList[index].getElementsByClassName("list-group-item-quick-reply-space")[0] != undefined || typeof botObj === 'string') {
+			// 			objArr = { "Bot": "", "User": "" };
+			// 			if (typeof botObj === 'string') {
+			// 				console.log("----Bot", index);
+			// 				objArr.Bot = $.trim(botObj);
+			// 				botObj = [];
+			// 			} else {
+			// 				console.log(botObj[0].innerHTML);
+			// 				console.log("----Bot", index);
+			// 				objArr.Bot = $.trim(botObj[0].innerHTML);
+			// 			}
+			// 			chatTranscript.push(objArr);
+
+			// 		} else {
+			// 			console.log(userObj[0].innerHTML);
+			// 			console.log("-----User", index);
+			// 			objArr.User = $.trim(userObj[0].innerHTML);
+			// 			if (chatTranscript.length == 0) {
+			// 				chatTranscript.push(objArr);
+			// 			}
+			// 		}
+			// 	}
+			// 	console.log(chatTranscript);
+			// 	let jsonData = {
+			// 		"ChatSession": localStorage.getItem("hashUser"),
+			// 		"ChatLESession":localStorage.getItem("chatLESession"),
+			// 		"UserName": "Charlotte",
+			// 		"ChatPage": "PostLogin",
+			// 		"Conversation": chatTranscript
+			// 	};
+
+			// 	console.log(jsonData);
+			// 	utils.initiateAjax("/writeFile", "POST", jsonData, function (data, err) {
+			// 		chatTranscript = [];
+			// 		console.log('Writing files...')
+			// 	});
+			// }
+
+			// window.onbeforeunload = function (event) {
+			// 	event = event || window.event;
+			// 	if (chatTranscript.length > 0) {
+			// 		captureTranscript();
+			// 	}
+			// 	// alert(chat);
+			// 	return chat;
+			// }
+		})
+
+
+	});
+</script>
+  <!-- RESPONSE TAP : START -->
+
+
+
+
+</body>
+</html>
